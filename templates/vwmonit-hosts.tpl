@@ -2,6 +2,7 @@
 	<div class='server'>
 
 		<div class="name"><a href="{$server.url}" target="_blank">{$server.name}</a></div>
+    <div class="version">({$server.monitversion})</div>
 
     <div class="service">
       {foreach from=$server.services item=service}
@@ -26,6 +27,8 @@
                         infos="port: {$service.port}<br>protocol: {$service.protocol}<br>request: {$service.request}<br>response time: {$service.responsetime}"
                     {else if $service.type == 'process'}
                         infos="pid: {$service.pid}<br>uptime: {$service.uptime}<br>cpu usage: {$service.cpu}<br>memory usage: {$service.memory}"
+                    {else if $service.type == 'file'}
+                        infos=""
                     {/if}
                 >
           </a>
@@ -35,3 +38,4 @@
 	</div>
 	<br>
 {/foreach}
+<br><br>

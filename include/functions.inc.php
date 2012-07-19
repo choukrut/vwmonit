@@ -8,10 +8,11 @@ function getHostInfos($xmlFile,$servers)
 	require ('config.inc.php');
 
 	// variables
-	$services = array ("Hosts", "Processes");
+	$services = array ("Hosts", "Processes", "Files");
 	
 	// open xml file and search specific xml nodes
 	$xml = new SimpleXMLElement($xmlFile,Null, TRUE);
+//	echo "<pre>".print_r($xml,1)."</pre>";
 
 	// get the monit version
 	$monitVersion=$xml->xpath('//monit/server/version');
@@ -20,6 +21,7 @@ function getHostInfos($xmlFile,$servers)
 
 	// get monit services
 	$monitServer=$xml->xpath('//monit/server');
+	$monitFiles=getInfoByMonitVersion($xml,$monitVersion,'files');
 	$monitProcesses=getInfoByMonitVersion($xml,$monitVersion,'processes');
 	$monitHosts=getInfoByMonitVersion($xml,$monitVersion,'hosts');
 	$monitSystem=getInfoByMonitVersion($xml,$monitVersion,'system');
@@ -61,6 +63,9 @@ function getHostInfos($xmlFile,$servers)
 					$servers['monit'][$id]['services'][$h]['cpu'] = (string)$s->cpu->percent;
 					$servers['monit'][$id]['services'][$h]['uptime'] = secondsToString((string)$s->uptime);
 					break;
+				case 'Files':
+					$servers['monit'][$id]['services'][$h]['type'] = "file";
+					break;
 				default:
 					break;
 			}
@@ -95,27 +100,31 @@ function getInfoByMonitVersion($xml,$monitVersion,$whichInfo)
 	switch ($whichInfo) {
 		case 'id':
 			if ( $monitVersion == "5.0.3" ) { $monitServer = $xml->xpath('//monit/server');	$info = (string)$monitServer[0]->id; }
-			elseif ( $monitVersion == "5.3.2" ) { $info = (string)$xml[0]['id']; }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4" ) { $info = (string)$xml[0]['id']; }
 			break;
 		case 'name':
 			if ( $monitVersion == "5.0.3" ) { $monitSystem=$xml->xpath('//monit/service[@type="5"]'); $info = (string)$monitSystem[0]->name; }
-			elseif ( $monitVersion == "5.3.2" ) { $monitSystem=$xml->xpath('//monit/services/service[type="5"]'); $info = (string)$monitSystem[0]['name']; }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4" ) { $monitSystem=$xml->xpath('//monit/services/service[type="5"]'); $info = (string)$monitSystem[0]['name']; }
+			break;
+		case 'files':
+			if ( $monitVersion == "5.0.3" ) { $info = $xml->xpath('//monit/service[@type="2"]'); }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4" ) { $info = $xml->xpath('//monit/services/service[type="2"]'); }
 			break;
 		case 'processes':
 			if ( $monitVersion == "5.0.3" ) { $info = $xml->xpath('//monit/service[@type="3"]'); }
-			elseif ( $monitVersion == "5.3.2" ) { $info = $xml->xpath('//monit/services/service[type="3"]'); }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4" ) { $info = $xml->xpath('//monit/services/service[type="3"]'); }
 			break;
 		case 'hosts':
 			if ( $monitVersion == "5.0.3" ) { $info = $xml->xpath('//monit/service[@type="4"]'); }
-			elseif ( $monitVersion == "5.3.2" ) { $info = $xml->xpath('//monit/services/service[type="4"]'); }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4"  ) { $info = $xml->xpath('//monit/services/service[type="4"]'); }
 			break;
 		case 'system':
 			if ( $monitVersion == "5.0.3" ) { $info = $xml->xpath('//monit/service[@type="5"]'); }
-			elseif ( $monitVersion == "5.3.2" ) { $info = $xml->xpath('//monit/services/service[type="5"]'); }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4" ) { $info = $xml->xpath('//monit/services/service[type="5"]'); }
 			break;
 		case 'serviceName':
 			if ( $monitVersion == "5.0.3" ) { $info = (string)$xml->name; }
-			elseif ( $monitVersion == "5.3.2" ) { $info = (string)$xml['name']; }
+			elseif ( $monitVersion == "5.3.2" || $monitVersion == "5.4" ) { $info = (string)$xml['name']; }
 			break;
 		default:
 			break;
