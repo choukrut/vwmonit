@@ -31,18 +31,19 @@ body {
     background-position: 2px 5px;
     padding-left: 40px;
     padding-bottom: 15px;
-    font-size: 12px; }
+    font-size: 9pt; }
     #vwmonit .server .name {
-      font-size: 17px;
+      font-size: 13pt;
       font-weight: bold;
       border-bottom: 1px solid #FE7119;
       display: inline; }
     #vwmonit .server .version {
+      font-size: 8pt;
       color: #888;
       font-style: italic;
       display: inline; }
     #vwmonit .server .service { 
-      font-size: 12px;
+      font-size: 9pt;
       display: inline;
       padding-left: 5px; }
     #vwmonit .server img {
@@ -53,7 +54,7 @@ body {
   padding-top: 20px;
   padding-left: 10px;
   padding-bottom: 20px;
-  font-size: 12px;
+  font-size: 9pt;
   margin-bottom: 40px; }
 
   #vwmonit .summary .host {
@@ -67,8 +68,10 @@ body {
     margin-left: 5px;
     margin-right: 5px;
     border: 1px solid #fff; }
-  #vwmonit .summary .host a {
-    color: #555; }
+
+    #vwmonit .summary .host a {
+      color: #555; }
+      
   #vwmonit .summary .running {
     padding: 10px 10px 10px 41px;
     background-color: #81c000;
