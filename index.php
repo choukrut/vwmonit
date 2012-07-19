@@ -30,6 +30,7 @@ while ($file = readdir($xmls)) {
 }
 closedir($xmls);
 
+ksort($servers["monit"]);
 $servers["hosts"] = $nbXml;
 //echo "<pre>".print_r($servers,1)."</pre>";
 //echo "<pre>".print_r($xml,1)."</pre>";
