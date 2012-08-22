@@ -4,7 +4,6 @@
 // ---------------------------------------------------------------
 function getHostInfos($xmlFile,$servers)
 {
-
 	require ('config.inc.php');
 
 	// variables
@@ -86,6 +85,7 @@ function getHostInfos($xmlFile,$servers)
 
 	$servers['monit'][$id]['totalservices'] = $l;
 	$servers["totalservices"] += $l;
+	$servers['monit'][$id]['lastXmlUpdate']=filemtime($xmlFile);
 
 return $servers;
 }

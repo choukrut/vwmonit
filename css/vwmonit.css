@@ -22,6 +22,23 @@ body {
 #vwmonit a:hover {
     text-decoration: none; }
 
+#vwmonit .serverxmlerror {
+    color: #fff;
+    background-color: #fa6e59;
+    border: 1px solid #ccc;
+    background-image: url("/images/server.png");
+    background-repeat: no-repeat;
+    background-position: 2px 5px;
+    padding-left: 40px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    font-size: 9pt; }
+    #vwmonit .serverxmlerror .name {
+      font-size: 13pt;
+      font-weight: bold;
+      border-bottom: 1px solid #FE7119;
+      display: inline; }
+
 #vwmonit .server {
     color: #222;
     background-color: #F8F8F8;

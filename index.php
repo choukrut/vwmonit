@@ -17,6 +17,7 @@ $servers["servicesrunning"] = 0;
 $servers["servicesfailure"] = 0;
 $servers["servicesunmonitored"] = 0;
 $servers["basicservicesabsent"] = 0;
+$servers["maxXmlUpdateDelta"] = 500;
 
 // parse all monit xml files 
 $xmls = opendir($monitXml);
